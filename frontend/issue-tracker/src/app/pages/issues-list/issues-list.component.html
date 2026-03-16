@@ -1,0 +1,85 @@
+<div class="toolbar" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; margin-bottom:12px;">
+  <mat-form-field appearance="outline">
+    <mat-label>Search title</mat-label>
+    <input matInput [(ngModel)]="search" (keyup.enter)="load()">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select [(ngModel)]="status" (selectionChange)="load()">
+      <mat-option [value]="''">All</mat-option>
+      <mat-option value="open">Open</mat-option>
+      <mat-option value="in_progress">In Progress</mat-option>
+      <mat-option value="resolved">Resolved</mat-option>
+      <mat-option value="closed">Closed</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Priority</mat-label>
+    <mat-select [(ngModel)]="priority" (selectionChange)="load()">
+      <mat-option [value]="''">All</mat-option>
+      <mat-option value="low">Low</mat-option>
+      <mat-option value="medium">Medium</mat-option>
+      <mat-option value="high">High</mat-option>
+      <mat-option value="critical">Critical</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Assignee</mat-label>
+    <input matInput [(ngModel)]="assignee" (keyup.enter)="load()">
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" (click)="openCreate()">Create Issue</button>
+</div>
+
+<div class="table-wrap" style="overflow:auto;">
+  <table mat-table [dataSource]="rows" matSort (matSortChange)="onSort($event)">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let r" (click)="openDetail(r)">{{ r.id }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Title</th>
+      <td mat-cell *matCellDef="let r" (click)="openDetail(r)">{{ r.title }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+      <td mat-cell *matCellDef="let r" (click)="openDetail(r)">{{ r.status }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="priority">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Priority</th>
+      <td mat-cell *matCellDef="let r" (click)="openDetail(r)">{{ r.priority }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="assignee">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Assignee</th>
+      <td mat-cell *matCellDef="let r" (click)="openDetail(r)">{{ r.assignee || '-' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="updatedAt">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated</th>
+      <td mat-cell *matCellDef="let r" (click)="openDetail(r)">{{ r.updatedAt | date:'medium' }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let r">
+        <button mat-button color="accent" (click)="openEdit(r); $event.stopPropagation();">Edit</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="cols"></tr>
+    <tr mat-row *matRowDef="let row; columns: cols;"></tr>
+  </table>
+
+  <mat-paginator [length]="total" [pageSize]="pageSize" [pageIndex]="page-1"
+                 [pageSizeOptions]="[5,10,20]" (page)="onPage($event)">
+  </mat-paginator>
+</div>
+``
