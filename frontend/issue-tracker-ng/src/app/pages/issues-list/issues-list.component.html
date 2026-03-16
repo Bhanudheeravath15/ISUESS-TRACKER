@@ -1,0 +1,39 @@
+<div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin-bottom:12px;">
+  <input placeholder="Search title" [(ngModel)]="search" (keyup.enter)="load()">
+  <select [(ngModel)]="status" (change)="load()">
+    <option value="">All status</option>
+    <option value="open">Open</option>
+    <option value="in_progress">In Progress</option>
+    <option value="resolved">Resolved</option>
+    <option value="closed">Closed</option>
+  </select>
+  <select [(ngModel)]="priority" (change)="load()">
+    <option value="">All priorities</option>
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+    <option value="critical">Critical</option>
+  </select>
+  <input placeholder="Assignee" [(ngModel)]="assignee" (keyup.enter)="load()">
+  <button (click)="load()">Apply</button>
+</div>
+
+<table border="1" cellpadding="6" cellspacing="0" width="100%">
+  <thead>
+    <tr>
+      <th>Id</th><th>Title</th><th>Status</th><th>Priority</th><th>Assignee</th><th>Updated</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let r of rows" (click)="openDetail(r)" style="cursor:pointer">
+      <td>{{ r.id }}</td>
+      <td>{{ r.title }}</td>
+      <td>{{ r.status }}</td>
+      <td>{{ r.priority }}</td>
+      <td>{{ r.assignee || '-' }}</td>
+      <td>{{ r.updatedAt | date:'medium' }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p *ngIf="rows.length === 0" style="margin-top:12px;">No issues yet. Create one from Swagger or via POST.</p>

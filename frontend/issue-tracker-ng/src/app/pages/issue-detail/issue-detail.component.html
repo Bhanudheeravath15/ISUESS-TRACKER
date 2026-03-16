@@ -1,0 +1,9 @@
+<ng-container *ngIf="!loading; else loadingTpl">
+  <h3>Issue #{{ issue?.id }} — {{ issue?.title }}</h3>
+  <pre>{{ issue | json }}</pre>
+  <a href="#/issues">← Back to issues</a>
+</ng-container>
+
+<ng-template #loadingTpl>
+  <p>Loading...</p>
+</ng-template>

@@ -1,0 +1,10 @@
+<ng-container *ngIf="!loading; else loadingTpl">
+  <h3>Issue #{{ issue?.id }} — {{ issue?.title }}</h3>
+  <pre>{{ issue | json }}</pre>
+</ng-container>
+
+<ng-template #loadingTpl>
+  <div style="display:flex; justify-content:center; padding:24px;">
+    <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+  </div>
+</ng-template>
