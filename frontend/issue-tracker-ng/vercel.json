@@ -1,7 +1,18 @@
 {
-  "rewrites": [
-    { "source": "/", "destination": "/index.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+  "builds": [
+    {
+      "src": "frontend/issue-tracker-ng/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist/issue-tracker-ng"
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
+    }
   ]
 }
 
